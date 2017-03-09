@@ -8,6 +8,18 @@
         <servlet-name>AltaPokemon</servlet-name>
         <servlet-class>servlets.AltaPokemon</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListadoEntrenadores</servlet-name>
+        <servlet-class>servlets.ListadoEntrenadores</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorrarPokemon</servlet-name>
+        <servlet-class>servlets.BorrarPokemon</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListadoBatallas</servlet-name>
+        <servlet-class>servlets.ListadoBatallas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AltaEntrenador</servlet-name>
         <url-pattern>/AltaEntrenador</url-pattern>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>AltaPokemon</servlet-name>
         <url-pattern>/AltaPokemon</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListadoEntrenadores</servlet-name>
+        <url-pattern>/ListadoEntrenadores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarPokemon</servlet-name>
+        <url-pattern>/BorrarPokemon</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListadoBatallas</servlet-name>
+        <url-pattern>/ListadoBatallas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

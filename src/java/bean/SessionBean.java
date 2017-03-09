@@ -37,6 +37,12 @@ public class SessionBean {
         return emf.createEntityManager().createNamedQuery("Trainer.findAll").getResultList();
     }
     
+    public List<Pokemon> selectAllPokemonLifeLvl(){
+        return emf.createEntityManager().createQuery("select p from Pokemon p order by p.level desc, p.life").getResultList();
+    }
+    public List<Trainer> selectAllTrainersLvlLife(){
+        return emf.createEntityManager().createQuery("select t from Trainer t order by t.points desc").getResultList();
+    }
     public Trainer getTrainerByName(String name){
         return emf.createEntityManager().find(Trainer.class, name);
     }
@@ -46,6 +52,18 @@ public class SessionBean {
         Pokemon encontrado = em.find(Pokemon.class, p.getName());
         em.close();
         return encontrado !=null;
+    }
+    
+    public boolean borrarPokemon(Pokemon p){
+        EntityManager em = emf.createEntityManager();
+        Pokemon borrar = em.find(Pokemon.class, p.getName());
+        boolean ok = false;
+        if(borrar != null){
+           em.remove(borrar);
+           ok =true;
+        }
+        em.close();
+        return ok;
     }
     
     public boolean insertarPokemon(Pokemon p){
