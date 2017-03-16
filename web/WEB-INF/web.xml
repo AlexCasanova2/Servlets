@@ -20,6 +20,14 @@
         <servlet-name>ListadoBatallas</servlet-name>
         <servlet-class>servlets.ListadoBatallas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Pociones</servlet-name>
+        <servlet-class>servlets.Pociones</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MejorarVida</servlet-name>
+        <servlet-class>servlets.Vida</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AltaEntrenador</servlet-name>
         <url-pattern>/AltaEntrenador</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>ListadoBatallas</servlet-name>
         <url-pattern>/ListadoBatallas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Pociones</servlet-name>
+        <url-pattern>/Pociones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MejorarVida</servlet-name>
+        <url-pattern>/MejorarVida</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

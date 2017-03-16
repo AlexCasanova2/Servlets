@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import bean.SessionBean;
@@ -14,16 +9,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Pokemon;
+import modelo.Trainer;
 
 /**
  *
- * @author 25369405z
+ * @author 25369405Z
  */
-public class BorrarPokemon extends HttpServlet {
+public class Vida extends HttpServlet {
 
     
-    @EJB
+      @EJB
     SessionBean miEjb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,49 +37,20 @@ public class BorrarPokemon extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BorrarPokemon</title>");            
+            out.println("<title>Servlet MejorarVida</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BorrarPokemon at " + request.getContextPath() + "</h1>");
-            List<Pokemon> pokemons = miEjb.selectAllPokemonLifeLvl();
-            out.println("<table style=\"border: 1px solid\">");
-            out.println("<tr>");
-            out.println("<th> Nombre <td>");
-            out.println("<th> Tipo <td>");
-            out.println("<th> Habilidad<td>");
-            out.println("<th> Ataque <td>");
-            out.println("<th> Velocidad <td>");
-            out.println("<th> Vida <td>");
-            out.println("<th> Nivel <td>");
-            out.println("</tr>");
-            
-            for (Pokemon p : pokemons) {
-
-                out.println("<tr>");
-                out.println("<td>" + p.getName() + "<td>");
-                out.println("<td>" + p.getType() + "<td>");
-                out.println("<td>" + p.getAbility() + "<td>");
-                out.println("<td>" + p.getAttack() + "<td>");
-                out.println("<td>" + p.getSpeed() + "<td>");
-                out.println("<td>" + p.getLife() + "<td>");
-                out.println("<td>" + p.getLevel() + "<td>");
-                out.println("<td><form method=\"post\">"
-                        + "<input type=\"hidden\" name=\"pokemon\" value=\""+p.getName()+"\">"
-                        + "<input type=\"submit\" name=\"boton\" value=\"Borrar\"> </form><td>");
-                out.println("</tr>");
-
-            }
-            out.println("</table>");
-            if ("Borrar".equals(request.getParameter("boton"))) {
-//                out.println(request.getParameter("pokemon"));
-                miEjb.borrarPokemon(request.getParameter("pokemon"));
-                
+            out.println("<h1>Servlet MejorarVida at " + request.getContextPath() + "</h1>");
+            List <Trainer> trainers = miEjb.selectTrainerByPotions();
+            for(Trainer t : trainers){
+                out.println("<td>" + t.getName() + "<td>");
+                out.println("<td>" + t.getPokeballs() + "<td>");
+                out.println("<td>" +  t.getPotions() + "<td>");
+                out.println("<td>" +  t.getPoints() + "<td>");
             }
             
             out.println("</body>");
             out.println("</html>");
-            
-            
         }
     }
 

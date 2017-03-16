@@ -38,7 +38,7 @@ public class SessionBean {
     }
     
     public List<Pokemon> selectAllPokemonLifeLvl(){
-        return emf.createEntityManager().createQuery("select p from Pokemon p order by p.level desc, p.life").getResultList();
+        return emf.createEntityManager().createQuery("select p from Pokemon p order by p.level desc, p.life desc").getResultList();
     }
     public List<Trainer> selectAllTrainersLvlLife(){
         return emf.createEntityManager().createQuery("select t from Trainer t order by t.points desc").getResultList();
@@ -47,6 +47,20 @@ public class SessionBean {
         return emf.createEntityManager().find(Trainer.class, name);
     }
     
+    public List<Trainer> selectTrainerByPotions(){
+        return emf.createEntityManager().createQuery("select t from Trainer t where t.potions > 1").getResultList();
+    }
+    
+    public void updateTrainer(Trainer t) {
+        EntityManager em = emf.createEntityManager();
+        Trainer entrenador = em.find(Trainer.class, t.getName());
+        entrenador.setPoints(t.getPoints());
+        entrenador.setPotions(t.getPotions());
+        em.persist(entrenador);
+        em.close(); 
+    }
+    
+    
     public boolean existePokemon(Pokemon p){
         EntityManager em = emf.createEntityManager();
         Pokemon encontrado = em.find(Pokemon.class, p.getName());
@@ -54,9 +68,9 @@ public class SessionBean {
         return encontrado !=null;
     }
     
-    public boolean borrarPokemon(Pokemon p){
+    public boolean borrarPokemon(String nombre){
         EntityManager em = emf.createEntityManager();
-        Pokemon borrar = em.find(Pokemon.class, p.getName());
+        Pokemon borrar = em.find(Pokemon.class, nombre);
         boolean ok = false;
         if(borrar != null){
            em.remove(borrar);

@@ -14,16 +14,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Pokemon;
+import modelo.Trainer;
 
 /**
  *
  * @author 25369405z
  */
-public class BorrarPokemon extends HttpServlet {
+public class Pociones extends HttpServlet {
 
     
-    @EJB
+     @EJB
     SessionBean miEjb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,49 +42,42 @@ public class BorrarPokemon extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BorrarPokemon</title>");            
+            out.println("<title>Servlet Pociones</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BorrarPokemon at " + request.getContextPath() + "</h1>");
-            List<Pokemon> pokemons = miEjb.selectAllPokemonLifeLvl();
-            out.println("<table style=\"border: 1px solid\">");
-            out.println("<tr>");
-            out.println("<th> Nombre <td>");
-            out.println("<th> Tipo <td>");
-            out.println("<th> Habilidad<td>");
-            out.println("<th> Ataque <td>");
-            out.println("<th> Velocidad <td>");
-            out.println("<th> Vida <td>");
-            out.println("<th> Nivel <td>");
-            out.println("</tr>");
+            out.println("<h1>Servlet Pociones at " + request.getContextPath() + "</h1>");
+            out.println("<form method=\"POST\">");
+            out.println("¿Quién eres?");
+            out.println("<select name=\"entrenador\">");
+            List<Trainer> trainers = miEjb.selectAllEntrenadores();
+            for (Trainer t : trainers) {
+                out.println("<option value=\"" + t.getName() + "\">" + t.getName() + " " + t.getPoints() + " Puntos"+ "</option>");
+            }
+            out.println("</select>");
+            out.println("<br>");
+            out.println("¿Cuantas pociones quieres comprar?");
+            out.println("<input type=\"number\" name=\"asigna\">");
+            out.println("<br>");
+            out.println("<input type=\"submit\" name=\"alta\" value=\"Asignar\">");
+            out.println("</form>");
             
-            for (Pokemon p : pokemons) {
-
-                out.println("<tr>");
-                out.println("<td>" + p.getName() + "<td>");
-                out.println("<td>" + p.getType() + "<td>");
-                out.println("<td>" + p.getAbility() + "<td>");
-                out.println("<td>" + p.getAttack() + "<td>");
-                out.println("<td>" + p.getSpeed() + "<td>");
-                out.println("<td>" + p.getLife() + "<td>");
-                out.println("<td>" + p.getLevel() + "<td>");
-                out.println("<td><form method=\"post\">"
-                        + "<input type=\"hidden\" name=\"pokemon\" value=\""+p.getName()+"\">"
-                        + "<input type=\"submit\" name=\"boton\" value=\"Borrar\"> </form><td>");
-                out.println("</tr>");
-
+            if("Asignar".equals(request.getParameter("alta"))){
+                Trainer t = miEjb.getTrainerByName(request.getParameter("entrenador"));
+                int pociones = Integer.parseInt(request.getParameter("asigna"));
+                out.println(pociones);
+                if(t.getPoints() <10 *pociones){
+                    out.println("Te faltan" + (10 *pociones  - t.getPoints()) + "para comprar una poción de vida");
+                }else{
+                    t.setPoints(t.getPoints() - 10 * pociones);
+                    t.setPotions(t.getPotions() + 1 * pociones);
+                    miEjb.updateTrainer(t);
+                    out.println("Compra realizada");
+                }
             }
-            out.println("</table>");
-            if ("Borrar".equals(request.getParameter("boton"))) {
-//                out.println(request.getParameter("pokemon"));
-                miEjb.borrarPokemon(request.getParameter("pokemon"));
-                
-            }
+            
             
             out.println("</body>");
             out.println("</html>");
-            
-            
         }
     }
 
